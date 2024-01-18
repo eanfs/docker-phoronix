@@ -14,13 +14,13 @@ After cloning the repository, just execute these commands:
 #### Building the docker-phoronix image  
 
 ```
-$ make bench_build
+$ ./build-all.sh
 ```
 
 #### Usage
 
 ```
-$ make bench
+$ ./run.sh
 ```
 
 This will run the container together with the supplied script. The script returns a menu from which you can choose an option.
