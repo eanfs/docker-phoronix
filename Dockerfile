@@ -17,8 +17,11 @@ RUN  sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list
 
 # Install dependencies
 RUN apt-get update
-# RUN apt-get install make gcc g++ libtool perl pcre-dev 
-RUN apt-get install apt-utils
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update && \
+    apt-get -yq install apt-utils && \
+    apt-get -yq install apt-file autoconf unzip
+# RUN apt-get install apt-utils
 # RUN apt-get install php-dom php-zip 
 # RUN apt-get install php-json php-simplexml
 
@@ -30,18 +33,22 @@ ADD phoronix-test-suite-${PHORONIX_VERSION}.tar.gz .
 RUN cd phoronix-test-suite-${PHORONIX_VERSION} && ./install-sh
 
 # Install predefined tests
+# RUN mkdir /var/lib/phoronix-test-suite/download-cache/
+# COPY sysbench-1.0.20.tar.gz /var/lib/phoronix-test-suite/download-cache/
+# COPY wrk-4.2.0.tar.gz /var/lib/phoronix-test-suite/download-cache/
+
 ## System
-RUN phoronix-test-suite install pts/sysbench
+# RUN phoronix-test-suite install pts/sysbench
 ## Disk
-RUN phoronix-test-suite install pts/iozone
+RUN phoronix-test-suite install pts/fio
 ## CPU
-RUN phoronix-test-suite install pts/c-ray
+RUN phoronix-test-suite install pts/cpuminer-opt
 ## Memory
 RUN phoronix-test-suite install pts/stream
 ## Services
 # RUN phoronix-test-suite install pts/apache
-# RUN phoronix-test-suite install pts/redis
-RUN phoronix-test-suite install pts/nginx
+RUN phoronix-test-suite install pts/stress-ng
+# RUN phoronix-test-suite install pts/gputest
 
 # Copy custom scripts
 COPY scripts/ .

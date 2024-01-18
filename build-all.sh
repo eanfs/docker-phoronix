@@ -11,8 +11,8 @@ group=swr.cn-east-3.myhuaweicloud.com/intetech
 
 # docker
 # docker buildx build --platform linux/amd64,linux/arm64 -t ${artifactId}:${version} --push -f ./Dockerfile .
-docker buildx build --platform=linux/amd64 -t ${artifactId}:${version}-amd64 --build-arg PHORONIX_VERSION=${version} -o type=docker,dest=- . > ${artifactId}-amd64.tar
-docker buildx build --platform=linux/arm64 -t ${artifactId}:${version}-arm64 --build-arg PHORONIX_VERSION=${version} -o type=docker,dest=- . > ${artifactId}-arm64.tar
+# docker buildx build --no-cache --platform=linux/amd64 -t ${artifactId}:${version}-amd64 --build-arg PHORONIX_VERSION=${version} -o type=docker,dest=- . > ${artifactId}-amd64.tar
+docker buildx build --no-cache --platform=linux/arm64 -t ${artifactId}:${version}-arm64 --build-arg PHORONIX_VERSION=${version} -o type=docker,dest=- . > ${artifactId}-arm64.tar
 # #docker tag  ${artifactId}:${version}  ${artifactId}:latest
 
 docker load < ${artifactId}-amd64.tar

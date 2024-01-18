@@ -21,6 +21,8 @@ $ ./build-all.sh
 
 ```
 $ ./run.sh
+or 
+docker run -it --rm swr.cn-east-3.myhuaweicloud.com/intetech/xde-phoronix-test-suite:latest
 ```
 
 This will run the container together with the supplied script. The script returns a menu from which you can choose an option.
@@ -30,3 +32,6 @@ This will run the container together with the supplied script. The script return
 After you exit from this menu, the docker-phoronix container will be automatically removed.
 
 NOTE: Don't use CTRL+C to exit the make command. This could result in the script being stuck in a loop and you will have to kill and remove the container manually.
+
+
+docker build --no-cache --progress=plain -t xde-phoronix-test-suite:10.8.4 --build-arg PHORONIX_VERSION=10.8.4 .
